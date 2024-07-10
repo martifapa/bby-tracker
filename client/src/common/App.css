@@ -10,6 +10,7 @@
 }
 
 body {
+  font-family: "Montserrat", sans-serif;
   background-color: var(--light-grey);
 }
 
@@ -29,7 +30,7 @@ body {
 }
 
 .logo {
-  max-height: 72px;
+  max-height: 62px;
   height: 100%;
 }
 
@@ -67,7 +68,6 @@ body {
   transform: translateY(-9px) rotate(45deg);
 }
 
-
 .burger-content {
   position: absolute;
   top: 80px;
@@ -102,7 +102,7 @@ body {
 }
 .burger-buttons button {
   padding: 8px 24px;
-  background-color: var(--base-aqua);
+  background-color: var(--aqua-light);
   border-radius: 50px;
   font-weight: 500;
   font-size: 1.2rem;
@@ -135,7 +135,22 @@ body {
   flex-direction: column;
   align-items: center;
   min-width: max-content;
-  background-color: ;
+}
+
+.pinned-action.selected .emoji-wrapper {
+  font-size: 1.5rem;
+  background-color: var(--base-aqua);
+}
+
+.pinned-action.removed {
+  animation: fadeOut .2s forwards;
+  animation: .2s;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
 }
 
 .emoji-wrapper {
@@ -144,17 +159,61 @@ body {
   align-items: center;
   background-color: var(--aqua-dark);
   border-radius: 50%;
+  transition: font-size .2s, background-color .2s;
 }
 
 .emoji-wrapper.big {
-  height: 38px;
-  width: 38px;
-  font-size: 1.3rem;
+  height: 40px;
+  width: 40px;
+  font-size: 1.2rem;
 }
 
 .action-label {
   font-size: 0.9rem;
   color: var(--text-dark);
+}
+
+.expand-action {
+  position: absolute;
+  top: 151px;
+  right: 0;
+  min-width: 100vw;
+  max-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+  background-color: var(--base-aqua);
+  transition: max-height .5s ease;
+  pointer-events: none;
+  z-index: 200;
+}
+
+.expand-action.visible {
+  max-height: 200px;
+  transition: max-height .5s;
+  pointer-events: all;
+}
+
+.expand-action__wrapper {
+  padding: 15px 25px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.expand-action__wrapper button {
+  padding: 6px 18px;
+  background-color: var(--aqua-light);
+  border-radius: 50px;
+}
+
+.expand-action__wrapper textarea {
+  flex-basis: 80%;
+  border: 1px solid var(--aqua-light);
+  border-radius: 4px;
+  padding: 8px;
 }
 
 .new-action {
@@ -206,7 +265,7 @@ body {
 .logs-wrapper h2 {
   flex-basis: 100%;
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 6000;
   color: var(--base-dark);
 }
 
