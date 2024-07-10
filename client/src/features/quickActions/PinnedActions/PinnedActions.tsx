@@ -33,6 +33,7 @@ const PinnedActions = () => {
                         id={emoji.id}
                         emoji={emoji.emoji}
                         label={emoji.label}
+                        visibility={!visibility}
                         toggleNewActionDD={() => setVisibility(false)} />
                 )}
             </div>

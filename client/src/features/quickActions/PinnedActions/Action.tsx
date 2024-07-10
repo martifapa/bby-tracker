@@ -8,11 +8,12 @@ interface Props {
     id: number,
     emoji: string,
     label: string,
+    visibility: boolean,
     toggleNewActionDD: () => void
 }
 
 
-const Action = ({ id, emoji, label, toggleNewActionDD}: Props) => {
+const Action = ({ id, emoji, label, visibility, toggleNewActionDD}: Props) => {
     const dispatch = useAppDispatch();
     
     const [fullView, setFullView] = useState(false);
@@ -23,6 +24,12 @@ const Action = ({ id, emoji, label, toggleNewActionDD}: Props) => {
     useEffect(() => {
         setLogText(parseLogText(datetime, label));
     }, [fullView]);
+
+    useEffect(() => {
+        if (!visibility) {
+            setFullView(false);
+        }
+    }, [visibility])
 
     const toggleDropdown = () => {
         toggleNewActionDD();
