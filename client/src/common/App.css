@@ -343,6 +343,8 @@ body {
   border-radius: 10px;
   background-color: var(--white);
   box-shadow: 0 0 5px var(--base-aqua);
+  max-height: 34vh;
+  overflow: auto;
   padding: 12px;
   display: flex;
   flex-wrap: wrap;
@@ -379,6 +381,11 @@ body {
   display: flex;
   align-items: flex-end;
   gap: 3px;
+}
+
+.log-content p {
+  display: flex;
+  align-items: baseline;
 }
 
 .log-content__secondary {

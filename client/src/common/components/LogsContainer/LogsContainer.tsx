@@ -1,3 +1,4 @@
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import Log from "./Log";
 
 interface Props {
@@ -6,22 +7,20 @@ interface Props {
 
 
 const LogsContainer = ({ title }: Props) => {
-    const logs = [
-        {id: 1, emoji: '😴', main: '19:15', secondary: '33\' ago'},
-        {id: 2, emoji: '😴', main: '19:15', secondary: '33\' ago'},
-        {id: 3, emoji: '😴', main: '19:15', secondary: '33\' ago'},
-        {id: 4, emoji: '😴', main: '19:15', secondary: '33\' ago'},
-    ]
+    const dispatch = useAppDispatch();
+    const logs = useAppSelector(state => state.logs);
+
     return (
         <div className="logs-wrapper">
             <h2>{title}</h2>
             <div className="logs">
-                {logs.map(log => 
+                {logs.logs.map(log => 
                     <Log
                         key={log.id}
                         emoji={log.emoji}
-                        main={log.main}
-                        secondary={log.secondary}/>
+                        label ={log.label}
+                        datetime={log.datetime}
+                        text={log.text}/>
                 )}
             </div>
         </div>

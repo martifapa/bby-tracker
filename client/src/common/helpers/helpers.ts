@@ -1,14 +1,14 @@
 export const parseLogText = (datetime: string, label: string) => {
-    const text = datetime + ' ';
+    const text = parseTime(datetime) + ' ';
     switch (label) {
         case 'Sleep':
-            return text + '5\' ago';
+            return [text, '5\' ago'];
         case 'Wake up':
-            return text + '30\' slept';
+            return [text, '30\' slept'];
         case 'Eat':
-            return text + '5\' ago';
+            return [text, '5\' ago'];
         default:
-            return text + '5\' ago';
+            return [text, '5\' ago'];
     }
 }
 
@@ -27,3 +27,12 @@ export const getLocalDateTime = (datetime: null|string=null): string => {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     return `${year}-${month}-${day} ${hours}:${minutes}`;
 };
+
+
+const parseTime = (datetime: string): string => {
+    const date = new Date(datetime);
+
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
+}

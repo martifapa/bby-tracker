@@ -1,19 +1,24 @@
+import { parseLogText } from "../../helpers/helpers";
+
+
 interface Props {
     emoji: string,
-    main: string, 
-    secondary: string
+    label: string,
+    datetime: string, 
+    text: string | undefined
 }
 
 
-const Log = ({ emoji, main, secondary }: Props) => {
+const Log = ({ emoji, label, datetime, text }: Props) => {
+    const [time, elapsedTime] = parseLogText(datetime, label);
     return (
         <div className="log">
             <div className="emoji-wrapper small">
                 <p className="emoji">{emoji}</p>
             </div>
             <div className="log-content">
-                <p className="log-content__main">{main}</p>
-                {secondary && <p className="log-content__secondary">({secondary})</p>}
+                <p className="log-content__main">{time}</p>
+                {label && <p className="log-content__secondary">{`${label} ${elapsedTime}`}</p>}
             </div>
         </div>
     );

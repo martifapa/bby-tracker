@@ -32,7 +32,7 @@ const Action = ({ id, emoji, label, newActionDDVisibility, visibility, toggleVis
             toggleVisibility(-1);
             // setFullView(false);
         }
-    }, [newActionDDVisibility])
+    }, [newActionDDVisibility, toggleVisibility])
 
     const toggleDropdown = () => {
         toggleNewActionDD();
@@ -80,7 +80,7 @@ const Action = ({ id, emoji, label, newActionDDVisibility, visibility, toggleVis
                     </div>
                     <div className="log-field log-result">
                         <span>Logged text</span>
-                        <input placeholder={logText}></input>
+                        <input placeholder={logText[0] + logText[1]}></input>
                     </div>
                     <button
                         className="light-button"

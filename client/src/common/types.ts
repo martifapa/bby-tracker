@@ -11,3 +11,17 @@ export interface QuickActionState {
     status: string,
     pinned: QuickAction[]
 }
+
+
+export interface Log {
+    id: number,
+    datetime: string,
+    label: string,
+    emoji: string,
+    text?: string
+}
+
+export interface LogsState {
+    status: string,
+    logs: Log[]
+}
