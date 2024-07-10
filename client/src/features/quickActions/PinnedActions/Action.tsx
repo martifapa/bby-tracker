@@ -8,32 +8,36 @@ interface Props {
     id: number,
     emoji: string,
     label: string,
+    newActionDDVisibility: boolean,
     visibility: boolean,
+    toggleVisibility: (id: number) => void,
     toggleNewActionDD: () => void
 }
 
 
-const Action = ({ id, emoji, label, visibility, toggleNewActionDD}: Props) => {
+const Action = ({ id, emoji, label, newActionDDVisibility, visibility, toggleVisibility, toggleNewActionDD}: Props) => {
     const dispatch = useAppDispatch();
     
-    const [fullView, setFullView] = useState(false);
+    // const [fullView, setFullView] = useState(false);
     const [datetime, setDatetime] = useState(getLocalDateTime);
     const [logText, setLogText] = useState(() => parseLogText(datetime, label));
     const [isRemoving, setIsRemoving] = useState(false);
 
     useEffect(() => {
         setLogText(parseLogText(datetime, label));
-    }, [fullView]);
+    }, [visibility, datetime, label]);
 
     useEffect(() => {
-        if (!visibility) {
-            setFullView(false);
+        if (!newActionDDVisibility) {
+            toggleVisibility(-1);
+            // setFullView(false);
         }
-    }, [visibility])
+    }, [newActionDDVisibility])
 
     const toggleDropdown = () => {
         toggleNewActionDD();
-        setFullView(!fullView);
+        toggleVisibility(id);
+        // setFullView(!fullView);
     }
 
     const handleDatetimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +56,7 @@ const Action = ({ id, emoji, label, visibility, toggleNewActionDD}: Props) => {
     }
 
     return (
-        <div className={`pinned-action ${fullView && !isRemoving ? 'selected' : ''} ${isRemoving ? 'removed' : ''}`}>
+        <div className={`pinned-action ${visibility && !isRemoving ? 'selected' : ''} ${isRemoving ? 'removed' : ''}`}>
             <div
                 className="emoji-wrapper big"
                 onClick={toggleDropdown}
@@ -61,7 +65,7 @@ const Action = ({ id, emoji, label, visibility, toggleNewActionDD}: Props) => {
             </div>
             <p className="action-label">{label}</p>
 
-            <div className={`expand-action ${fullView && !isRemoving ? 'visible' : ''}`}>
+            <div className={`expand-action ${visibility && !isRemoving ? 'visible' : ''}`}>
                 <div className="expand-action__wrapper">
                     <button
                          className="light-button"

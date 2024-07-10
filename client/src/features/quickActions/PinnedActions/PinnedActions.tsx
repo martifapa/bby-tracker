@@ -8,6 +8,7 @@ const PinnedActions = () => {
     const pinnedActions = useAppSelector(state => state.quickActions);
     const [visibility, setVisibility] = useState(false);
     const [newQuickAction, setNewQuickAction] = useState({emoji: '😴', label: 'Sleep'});
+    const [actionVisibility, setActionVisibility] = useState(-1);
 
     const handlePinNewAction = () => {
         toggleDropdown();
@@ -24,6 +25,14 @@ const PinnedActions = () => {
         setNewQuickAction({...newQuickAction, [label]: value})
     }
 
+    const handlePinnedActionVisibility = (id: number) => {
+        if (id === actionVisibility) {
+            setActionVisibility(-1);
+        } else {
+            setActionVisibility(id);
+        }
+    }
+
     return (
         <div className="pinned-actions">
             <div className="custom-actions">
@@ -33,7 +42,9 @@ const PinnedActions = () => {
                         id={emoji.id}
                         emoji={emoji.emoji}
                         label={emoji.label}
-                        visibility={!visibility}
+                        newActionDDVisibility={!visibility}
+                        visibility={actionVisibility === emoji.id}
+                        toggleVisibility={handlePinnedActionVisibility}
                         toggleNewActionDD={() => setVisibility(false)} />
                 )}
             </div>
