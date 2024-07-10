@@ -7,11 +7,12 @@ import { unpinQuickAction } from "../quickActionsSlice";
 interface Props {
     id: number,
     emoji: string,
-    label: string
+    label: string,
+    toggleNewActionDD: () => void
 }
 
 
-const Action = ({ id, emoji, label}: Props) => {
+const Action = ({ id, emoji, label, toggleNewActionDD}: Props) => {
     const dispatch = useAppDispatch();
     
     const [fullView, setFullView] = useState(false);
@@ -23,12 +24,13 @@ const Action = ({ id, emoji, label}: Props) => {
         setLogText(parseLogText(datetime, label));
     }, [fullView]);
 
-    const handleActionClick = () => {
+    const toggleDropdown = () => {
+        toggleNewActionDD();
         setFullView(!fullView);
     }
 
     const handleDatetimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDatetime(event.target.value);
+        setDatetime(getLocalDateTime(event.target.value));
     }
 
     const handleUnpinQuickAction = (id: number) => {
@@ -38,11 +40,15 @@ const Action = ({ id, emoji, label}: Props) => {
         }, 500);
     }
 
+    const handleCreateLog = () => {
+        toggleDropdown();
+    }
+
     return (
         <div className={`pinned-action ${fullView && !isRemoving ? 'selected' : ''} ${isRemoving ? 'removed' : ''}`}>
             <div
                 className="emoji-wrapper big"
-                onClick={handleActionClick}
+                onClick={toggleDropdown}
             >
                 <p className="emoji">{emoji}</p>
             </div>
@@ -50,15 +56,29 @@ const Action = ({ id, emoji, label}: Props) => {
 
             <div className={`expand-action ${fullView && !isRemoving ? 'visible' : ''}`}>
                 <div className="expand-action__wrapper">
-                    <button onClick={() => handleUnpinQuickAction(id)}>Remove</button>
-                    <button>Update</button>
-                    <input
-                        type="datetime-local"
-                        value={datetime}
-                        onChange={handleDatetimeChange}
-                    />
-                    <textarea name="custom-log" id="custom-log" placeholder={logText}></textarea>
-                    <button>Send</button>
+                    <button
+                         className="light-button"
+                        onClick={() => handleUnpinQuickAction(id)}>Remove</button>
+                    <div className="log-field log-time">
+                        <span>Log time</span>
+                        <input
+                            type="datetime-local"
+                            value={datetime}
+                            onChange={handleDatetimeChange}
+                        />
+                    </div>
+                    <div className="log-field log-result">
+                        <span>Logged text</span>
+                        <input placeholder={logText}></input>
+                    </div>
+                    <button
+                        className="light-button"
+                        onClick={handleCreateLog}
+                    >Save</button>
+                    <button
+                        className="light-button"
+                        onClick={toggleDropdown}
+                    >Cancel</button>
                 </div>
             </div>
         </div>

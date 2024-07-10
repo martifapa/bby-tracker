@@ -7,6 +7,7 @@
   --aqua-dark: #aed6bb;
   --base-dark: #262626;
   --text-dark: #535353;
+  --highlight-orange: #f48225;
 }
 
 body {
@@ -144,7 +145,7 @@ body {
 
 .pinned-action.removed {
   animation: fadeOut .2s forwards;
-  animation: .2s;
+  animation-delay: .2s;
 }
 
 @keyframes fadeOut {
@@ -184,14 +185,14 @@ body {
   align-items: flex-start;
   overflow: hidden;
   background-color: var(--base-aqua);
-  transition: max-height .5s ease;
+  transition: max-height .3s ease;
   pointer-events: none;
-  z-index: 200;
+  z-index: 900;
 }
 
 .expand-action.visible {
-  max-height: 200px;
-  transition: max-height .5s;
+  max-height: 250px;
+  transition: max-height .3s;
   pointer-events: all;
 }
 
@@ -201,19 +202,53 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
+  font-size: 1.1rem;
 }
 
-.expand-action__wrapper button {
+.light-button {
   padding: 6px 18px;
   background-color: var(--aqua-light);
   border-radius: 50px;
 }
 
-.expand-action__wrapper textarea {
+.expand-action__wrapper input {
   flex-basis: 80%;
-  border: 1px solid var(--aqua-light);
+  border: 1px solid var(--text-dark);
   border-radius: 4px;
   padding: 8px;
+}
+
+.log-field {
+  position: relative;
+  margin-top: 10px;
+  width: 80%;
+}
+
+.log-field input {
+  padding-top: 12px;
+  width: 100%;
+}
+
+.log-field span {
+  position: absolute;
+  top: -1ch;
+  left: 1ch;
+  font-size: 1rem;
+  background-color: var(--base-aqua);
+}
+
+.log-result span {
+  color: var(--aqua-light);
+}
+
+.log-result input {
+  border: 1px solid var(--aqua-light);
+  color: var(--aqua-light);
+}
+
+.log-result input:focus {
+  outline: 1px solid var(--highlight-orange);
+  border-color: var(--highlight-orange);
 }
 
 .new-action {
@@ -249,6 +284,58 @@ body {
   transform: rotate(90deg);
 }
 
+
+.expand-create-action__wrapper {
+  position: absolute;
+  top: 65px;
+  right: -14px;
+  width: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  pointer-events: none;
+  background-color: var(--base-aqua);
+  transition: width .3s;
+}
+
+.expand-create-action__wrapper.selected {
+  max-width: 100vw;
+  width: 100vw;
+  pointer-events: all;
+}
+
+.expand-create-action {
+  width: 100%;
+  padding: 15px 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+}
+
+.fieldset {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.fieldset p {
+  text-wrap: nowrap;
+}
+.fieldset input {
+  max-width: 100px;
+  text-align: right;
+  padding: 4px 8px;
+  color: var(--aqua-light);
+}
+
+.expand-create-action__buttons {
+  display: flex;
+  gap: 8px;
+}
 
 /* LOG HISTORY */
 .logs-wrapper {
