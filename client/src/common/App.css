@@ -297,6 +297,7 @@ body {
   pointer-events: none;
   background-color: var(--base-aqua);
   transition: width .3s;
+  z-index: 800;
 }
 
 .expand-create-action__wrapper.selected {
@@ -339,23 +340,43 @@ body {
 
 /* LOG HISTORY */
 .logs-wrapper {
+  position: relative;
   margin: 10px;
   border-radius: 10px;
   background-color: var(--white);
   box-shadow: 0 0 5px var(--base-aqua);
   max-height: 34vh;
-  overflow: auto;
   padding: 12px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 12px;
+  overflow: hidden;
 }
 
 .logs-wrapper h2 {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   flex-basis: 100%;
   font-size: 1.1rem;
-  font-weight: 6000;
+  font-weight: 500;
   color: var(--base-dark);
+  background-color: var(--white);
+}
+
+.edit-logs {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  color: var(--light-grey-dark);
+  transition: color .2s, background-color .2s;
+}
+
+.edit-logs.selected {
+  color: var(--text-dark);
+  background-color: var(--light-grey);
+  border-radius: 50px;
 }
 
 .logs {
@@ -363,6 +384,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 3px;
+  overflow: auto;
+  max-height: calc(34vh - 50px);
 }
 
 .log {
@@ -392,6 +415,46 @@ body {
   font-weight: 400;
   font-size: 0.8rem;
   color: var(--text-dark);
+}
+
+.edit-log {
+  color: var(--light-grey-dark);
+}
+
+.log__edit-popup__wrapper {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  width: 95%;
+  max-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  z-index: 3;
+}
+
+.log__edit-popup__wrapper.selected {
+  pointer-events: all;
+  max-height: 80vh;
+  background-color: var(--white);
+  border: 1px solid var(--light-grey-dark);
+  border-radius: 10px;
+  box-shadow: 0 0 4px var(--text-dark);
+}
+
+.log__edit-popup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px 25px;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
 }
 
 /* STATISTICS */
