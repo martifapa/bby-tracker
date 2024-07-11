@@ -3,7 +3,7 @@ import NavBar from '../common/components/Navbar/NavBar';
 import '../common/reset.css';
 import '../common/App.css';
 import PinnedActions from '../features/quickActions/PinnedActions/PinnedActions';
-import LogsContainer from '../common/components/LogsContainer/LogsContainer';
+import LogsContainer from '../features/logs/LogsContainer/LogsContainer';
 
 function App() {
 
