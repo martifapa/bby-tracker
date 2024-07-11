@@ -27,7 +27,7 @@ export const parseLogText = (datetime: string, label: string, logs: Log[]) => {
             if (isToday) {
                 logParts = [time, `slept for ${minutesSlept}`];
             } else {
-                logParts = [shortDate, `slept for ${time} ${minutesSlept}`];
+                logParts = [shortDate, `${time} slept for ${minutesSlept}`];
             }
             return logParts;
         default:

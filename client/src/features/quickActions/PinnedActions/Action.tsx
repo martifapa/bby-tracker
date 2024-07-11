@@ -81,7 +81,7 @@ const Action = ({ id, emoji, label, newActionDDVisibility, visibility, toggleVis
                     </div>
                     <div className="log-field log-result">
                         <span>Logged text</span>
-                        <input placeholder={logText[0] + logText[1]}></input>
+                        <input placeholder={logText.join(' ')}></input>
                     </div>
                     <button
                         className="light-button"

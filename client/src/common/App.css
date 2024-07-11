@@ -15,6 +15,15 @@ body {
   background-color: var(--light-grey);
 }
 
+.overlay.active {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+}
+
 /* NAVIGATION BAR */
 .nav {
   display: flex;
