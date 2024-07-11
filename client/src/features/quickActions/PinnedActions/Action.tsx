@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getLocalDateTime, parseLogText } from "../../../common/helpers/helpers";
 import { useAppDispatch, useAppSelector } from "../../../common/hooks";
 import { unpinQuickAction } from "../quickActionsSlice";
+import { addLog } from "../../logs/logsSlice";
 
 
 interface Props {
@@ -19,7 +20,6 @@ const Action = ({ id, emoji, label, newActionDDVisibility, visibility, toggleVis
     const dispatch = useAppDispatch();
     const logs = useAppSelector(state => state.logs.logs);
     
-    // const [fullView, setFullView] = useState(false);
     const [datetime, setDatetime] = useState(getLocalDateTime);
     const [logText, setLogText] = useState(() => parseLogText(datetime, label, logs));
     const [isRemoving, setIsRemoving] = useState(false);
@@ -29,16 +29,18 @@ const Action = ({ id, emoji, label, newActionDDVisibility, visibility, toggleVis
     }, [visibility, datetime, label, logs]);
 
     useEffect(() => {
+        setDatetime(getLocalDateTime());
+    }, [visibility]);
+
+    useEffect(() => {
         if (!newActionDDVisibility) {
             toggleVisibility(-1);
-            // setFullView(false);
         }
     }, [newActionDDVisibility, toggleVisibility])
 
     const toggleDropdown = () => {
         toggleNewActionDD();
         toggleVisibility(id);
-        // setFullView(!fullView);
     }
 
     const handleDatetimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +56,7 @@ const Action = ({ id, emoji, label, newActionDDVisibility, visibility, toggleVis
 
     const handleCreateLog = () => {
         toggleDropdown();
+        dispatch(addLog({ datetime, label, emoji }));
     }
 
     return (
