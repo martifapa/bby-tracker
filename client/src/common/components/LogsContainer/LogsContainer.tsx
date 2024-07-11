@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import Log from "./Log";
+import LogEntry from "./LogEntry";
 import Icon from "@mui/material/Icon";
 import { EditRounded } from "@mui/icons-material";
 import { useState } from "react";
@@ -28,13 +28,9 @@ const LogsContainer = ({ title }: Props) => {
             />
             <div className="logs">
                 {logs.logs.map(log => 
-                    <Log
+                    <LogEntry
                         key={log.id}
-                        id={log.id}
-                        emoji={log.emoji}
-                        label ={log.label}
-                        datetime={log.datetime}
-                        text={log.text}
+                        log={log}
                         editMode={editMode}
                     />
                 )}

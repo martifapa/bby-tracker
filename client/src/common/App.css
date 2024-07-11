@@ -317,7 +317,6 @@ body {
 }
 
 .fieldset {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   gap: 5px;
@@ -327,7 +326,7 @@ body {
   text-wrap: nowrap;
 }
 .fieldset input {
-  max-width: 100px;
+  width: 100%;
   text-align: right;
   padding: 4px 8px;
   color: var(--aqua-light);
@@ -423,25 +422,28 @@ body {
 
 .log__edit-popup__wrapper {
   position: absolute;
+  z-index: 3;
   top: 5px;
   left: 50%;
   width: 95%;
-  max-height: 0;
+  max-height: 70vh;
   overflow: hidden;
+  opacity: 0;
   pointer-events: none;
-  transform: translateX(-50%);
+  transform: translate(-50%,-50px);
   display: flex;
   flex-direction: column;
-  z-index: 3;
-}
-
-.log__edit-popup__wrapper.selected {
-  pointer-events: all;
-  max-height: 80vh;
   background-color: var(--white);
   border: 1px solid var(--light-grey-dark);
   border-radius: 10px;
   box-shadow: 0 0 4px var(--text-dark);
+  transition: opacity .3s, transform .3s;
+}
+
+.log__edit-popup__wrapper.selected {
+  opacity: 1;
+  transform: translate(-50%,0);
+  pointer-events: all;
 }
 
 .log__edit-popup {
@@ -449,6 +451,14 @@ body {
   flex-direction: column;
   gap: 10px;
   padding: 15px 25px;
+}
+
+.log__edit-popup .fieldset {
+  display: flex;
+  font-size: 1.1rem;
+}
+.log__edit-popup .fieldset input {
+  color: var(--text-dark);
 }
 
 .popup-buttons {

@@ -59,7 +59,7 @@ const PinnedActions = () => {
                 <div className={`expand-create-action__wrapper ${visibility ? 'selected' : ''}`}>
                     <div className="expand-create-action">
                         <div className="fieldset">
-                            <p>Select an emoji</p>
+                            <p>Quick action emoji</p>
                             <input
                                 type="text"
                                 name="emoji"
@@ -68,7 +68,7 @@ const PinnedActions = () => {
                             />
                         </div>
                         <div className="fieldset">
-                            <p>Write a title</p>
+                            <p>Quick action name</p>
                             <input
                                 type="text"
                                 name="label"
