@@ -33,15 +33,23 @@ const LogEntry = ({ log, editMode }: Props) => {
     }
 
     const handleEmojiChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const label = '';
         const emoji = event.target.value;
-        setEditedLog({...editedLog, emoji, label});
-        console.log(editedLog)
+        const label = pinnedActions.pinned.find(action => action.emoji === emoji)?.label;
+        if (label) {
+            setEditedLog({...editedLog, emoji, label});
+        }
     }
 
     const updateLogEntry = () => {
         toggleEditPopup();
         dispatch(updateLog(editedLog));
+    }
+
+    const handleCancelEditMode = () => {
+        toggleEditPopup();
+        setTimeout(() => {
+            setEditedLog(log);
+        }, 200);
     }
 
     return (
@@ -63,12 +71,11 @@ const LogEntry = ({ log, editMode }: Props) => {
                 <div className="log__edit-popup">
                     <div className="fieldset">
                         <p>Emoji</p>
-                        <select name="emoji" onChange={handleEmojiChange}>
+                        <select name="emoji" value={editedLog.emoji} onChange={handleEmojiChange}>
                             {pinnedActions.pinned.map(action =>
                                 <option
                                     key={action.id}
                                     value={action.emoji}
-                                    selected={action.emoji === log.emoji}    
                                 >{action.emoji}</option>
                             )}
                         </select>
@@ -78,7 +85,7 @@ const LogEntry = ({ log, editMode }: Props) => {
                         <input
                             name="datetime"
                             type="datetime-local"
-                            value={datetime}
+                            value={editedLog.datetime}
                             onChange={handleDatetimeChange}>
                         </input>
                     </div>
@@ -89,7 +96,7 @@ const LogEntry = ({ log, editMode }: Props) => {
                             >Edit</button>
                         <button
                             className="light-button"
-                            onClick={toggleEditPopup}    
+                            onClick={handleCancelEditMode}    
                         >Cancel</button>
                     </div>
                 </div>
