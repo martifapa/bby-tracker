@@ -361,6 +361,32 @@ body {
   overflow: hidden;
 }
 
+.logs-wrapper__icons {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.icon {
+  color: var(--light-grey-dark);
+}
+
+.icon:active {
+  color: var(--text-dark);
+  background-color: var(--light-grey);
+  border-radius: 50px;
+}
+
+.edit-logs.selected {
+  color: var(--text-dark);
+  background-color: var(--light-grey);
+  border-radius: 50px;
+}
+
+
 .logs-wrapper h2 {
   position: sticky;
   top: 0;
@@ -370,21 +396,6 @@ body {
   font-weight: 500;
   color: var(--base-dark);
   background-color: var(--white);
-}
-
-.edit-logs {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 2;
-  color: var(--light-grey-dark);
-  transition: color .2s, background-color .2s;
-}
-
-.edit-logs.selected {
-  color: var(--text-dark);
-  background-color: var(--light-grey);
-  border-radius: 50px;
 }
 
 .logs {
