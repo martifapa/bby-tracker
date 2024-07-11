@@ -1,6 +1,7 @@
 import NavBar from '../common/components/Navbar/NavBar';
-import PinnedActions from '../features/quickActions/PinnedActions/PinnedActions';
-import LogsContainer from '../features/logs/LogsContainer/LogsContainer';
+import PinnedActions from '../features/quickActions/components/PinnedActions';
+import LogsContainer from '../features/logs/components/LogsContainer';
+import SummaryStatsContainer from '../features/summaryStats/SummaryStats/SummaryStatsContainer';
 
 import { createPortal } from 'react-dom';
 import '../common/reset.css';
@@ -17,7 +18,7 @@ function App() {
     <NavBar />
     <PinnedActions />
     <LogsContainer title='Log history' />
-    <LogsContainer title='Day summary' />
+    <SummaryStatsContainer title='Day summary' />
     <button className="go-to-statistics">Statistics</button>
     </>
   );
