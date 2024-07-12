@@ -1,9 +1,8 @@
 import { Log } from "../types";
 
-const getToday = (): {todayDate: string, todayDatetime: string} => {
-    const todayDatetime = new Date().toJSON()
-    const todayDate = todayDatetime.slice(0, 10);
-    return { todayDate, todayDatetime };
+
+export const toCapitalize = (text: string): string => {
+    return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
 export const parseLogText = (datetime: string, label: string, logs: Log[]) => {
@@ -78,4 +77,10 @@ const getElapsedTimeString = (minutes: number): string => {
     }
 
     return timeString;
+}
+
+const getToday = (): {todayDate: string, todayDatetime: string} => {
+    const todayDatetime = new Date().toJSON()
+    const todayDate = todayDatetime.slice(0, 10);
+    return { todayDate, todayDatetime };
 }

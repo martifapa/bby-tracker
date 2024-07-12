@@ -1,6 +1,7 @@
 import Icon from "@mui/material/Icon";
 import { EditRounded, ArrowForwardRounded } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import SummaryStats from "./SummaryStats";
 
 
 interface Props {
@@ -11,7 +12,13 @@ interface Props {
 const SummaryStatsContainer = ({ title }: Props) => {
     const [editMode, setEditMode] = useState(false);
 
-    const handleEnableEditMode = () => {
+    useEffect(() => {
+        const overlay = document.querySelector('.overlay');
+        if (editMode) overlay?.classList.add('active');
+        else overlay?.classList.remove('active');
+    }, [editMode]);
+
+    const toggleEditMode = () => {
         setEditMode(!editMode);
     }
 
@@ -22,16 +29,16 @@ const SummaryStatsContainer = ({ title }: Props) => {
                 <Icon
                     component={EditRounded}
                     className={`edit-logs icon ${editMode ? 'selected' : ''}`}
-                    onClick={handleEnableEditMode}
+                    onClick={toggleEditMode}
                 />
                 <Icon
                     component={ArrowForwardRounded}
                     className="goto-logs icon"
-                    // onClick={handleEnableEditMode} //go to page
+                    // onClick={toggleEditMode} //go to page
                 />
             </div>
             <div className="summary-stats">
-                summary-stats
+                <SummaryStats editMode={editMode} toggleEditMode={toggleEditMode} />
             </div>
         </div>
     );

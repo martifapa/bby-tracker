@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import quickActionsSlice from "../features/quickActions/quickActionsSlice";
 import logsSlice from "../features/logs/logsSlice";
+import summaryStatsSlice from "../features/summaryStats/summaryStatsSlice";
 
 
 const store = configureStore({
     reducer: {
         quickActions: quickActionsSlice,
-        logs: logsSlice
+        logs: logsSlice,
+        summaryStats: summaryStatsSlice
     }
 });
 

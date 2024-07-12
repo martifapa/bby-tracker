@@ -13,6 +13,7 @@ export interface QuickActionState {
 }
 
 
+
 export interface Log {
     id: number,
     datetime: string,
@@ -24,4 +25,14 @@ export interface Log {
 export interface LogsState {
     status: string,
     logs: Log[]
+}
+
+
+
+export interface SummaryStatType {
+    emoji: string,
+    title: string,
+    times: number,
+    cadence: string,
+    total?: string
 }
