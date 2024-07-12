@@ -1,4 +1,4 @@
-import NavBar from "../common/components/Navbar/NavBar";
+import NavBar from "../components/Navbar/NavBar";
 import { Link } from "react-router-dom";
 
 

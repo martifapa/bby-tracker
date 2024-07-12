@@ -1,4 +1,4 @@
-import { Log } from "../types";
+import { Log } from "../common/types";
 
 
 export const toCapitalize = (text: string): string => {

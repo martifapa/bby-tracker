@@ -24,7 +24,8 @@ export interface Log {
 
 export interface LogsState {
     status: string,
-    logs: Log[]
+    logs: Log[],
+    previewLogs: number
 }
 
 

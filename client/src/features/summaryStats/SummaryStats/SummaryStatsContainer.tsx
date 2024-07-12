@@ -29,7 +29,7 @@ const SummaryStatsContainer = ({ title }: Props) => {
     }
 
     return (
-        <div className="logs-wrapper">
+        <div className="logs-wrapper container">
             <h2>{title}</h2>
             <div className="logs-wrapper__icons">
                 <Icon

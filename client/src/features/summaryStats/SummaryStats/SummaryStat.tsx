@@ -1,5 +1,5 @@
 import { SummaryStatType } from "../../../common/types";
-import { toCapitalize } from "../../../common/helpers/helpers";
+import { toCapitalize } from "../../../common/helpers";
 
 
 interface Props {

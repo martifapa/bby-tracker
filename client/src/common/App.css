@@ -185,6 +185,7 @@ body {
 
 .expand-action {
   position: absolute;
+  z-index: 900;
   top: 151px;
   right: 0;
   min-width: 100vw;
@@ -196,7 +197,6 @@ body {
   background-color: var(--base-aqua);
   transition: max-height .3s ease;
   pointer-events: none;
-  z-index: 900;
 }
 
 .expand-action.visible {
@@ -299,6 +299,7 @@ body {
 
 .expand-create-action__wrapper {
   position: absolute;
+  z-index: 800;
   top: 65px;
   right: -14px;
   width: 0;
@@ -309,7 +310,6 @@ body {
   pointer-events: none;
   background-color: var(--base-aqua);
   transition: width .3s;
-  z-index: 800;
 }
 
 .expand-create-action__wrapper.selected {
@@ -350,19 +350,22 @@ body {
 }
 
 /* LOG HISTORY */
-.logs-wrapper {
-  position: relative;
+.container {
   margin: 10px;
   border-radius: 10px;
   background-color: var(--white);
   box-shadow: 0 0 5px var(--base-aqua);
-  max-height: 34vh;
   padding: 12px;
+}
+
+.logs-wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 12px;
   overflow: hidden;
 }
+
 
 .logs-wrapper__icons {
   position: absolute;
@@ -536,7 +539,7 @@ body {
 
 /* STATISTICS */
 /* Main page button */
-.button{
+.button {
   padding: 8px 24px;
   background-color: var(--base-aqua);
   border-radius: 50px;
@@ -568,4 +571,94 @@ body {
   font-size: 1.2rem;
 }
 
-.error-page a {}
+
+/* LOGS PAGE */
+.full-view {
+  height: calc(100vh - 150px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.full-view .logs {
+  max-height: calc(100vh - 205px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: auto;
+}
+
+.full-view h2 {
+  font-size: 1.2rem;
+  flex-basis: 100%;
+}
+
+.filter-logs {
+  width: 100%;
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--light-grey-dark);
+  display: flex;
+  gap: 20px;
+}
+
+.filter {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.range-dropdow {
+  position: absolute;
+  top: 30px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 4px var(--text-dark);
+  opacity: 0;
+  padding: 8px 10px;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: transform .2s, opacity .2s;
+}
+
+.range-dropdow.selected {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.expand {
+  padding: 3px;
+  transition: transform .2s;
+}
+
+.collapse {
+  padding: 3px;
+  transform: rotate(-90deg);
+  transition: transform .2s;
+}
+
+.filter input[type="date"]::-webkit-inner-spin-button,
+.filter input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  width: 45%;
+  opacity: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.filter input[type="date"] {
+  width: 60%;
+  border: 1px solid var(--light-grey-dark);
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin-inline-start: auto;
+}
+
+.dark-button {
+  background-color: var(--base-aqua);
+  border-radius: 50px;
+  padding: 5px 12px;
+  margin-inline-start: auto;
+}
