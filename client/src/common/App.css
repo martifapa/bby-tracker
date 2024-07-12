@@ -220,6 +220,10 @@ body {
   border-radius: 50px;
 }
 
+.light-button:active {
+  background-color: var(--aqua-dark);
+}
+
 .expand-action__wrapper input {
   flex-basis: 80%;
   border: 1px solid var(--text-dark);
@@ -474,6 +478,7 @@ body {
 
 .log__edit-popup .fieldset {
   display: flex;
+  align-items: center;
   font-size: 1.1rem;
 }
 .log__edit-popup .fieldset input {
@@ -531,7 +536,7 @@ body {
 
 /* STATISTICS */
 /* Main page button */
-.go-to-statistics {
+.button{
   padding: 8px 24px;
   background-color: var(--base-aqua);
   border-radius: 50px;
@@ -540,3 +545,27 @@ body {
   width: calc(100% - 20px);
   margin-inline: auto;
 }
+
+
+/* ERROR PAGE */
+.error-page {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.error-page h2 {
+  flex-basis: 100%;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.error-page p {
+  font-size: 1.2rem;
+}
+
+.error-page a {}

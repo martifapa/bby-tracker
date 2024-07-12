@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import quickActionsSlice from "../features/quickActions/quickActionsSlice";
-import logsSlice from "../features/logs/logsSlice";
-import summaryStatsSlice from "../features/summaryStats/summaryStatsSlice";
+import quickActionsSlice from "./features/quickActions/quickActionsSlice";
+import logsSlice from "./features/logs/logsSlice";
+import summaryStatsSlice from "./features/summaryStats/summaryStatsSlice";
 
 
 const store = configureStore({

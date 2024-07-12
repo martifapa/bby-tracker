@@ -2,6 +2,7 @@ import Icon from "@mui/material/Icon";
 import { EditRounded, ArrowForwardRounded } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import SummaryStats from "./SummaryStats";
+import { useNavigate } from "react-router-dom";
 
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 
 
 const SummaryStatsContainer = ({ title }: Props) => {
+    const navigate = useNavigate();
     const [editMode, setEditMode] = useState(false);
 
     useEffect(() => {
@@ -20,6 +22,10 @@ const SummaryStatsContainer = ({ title }: Props) => {
 
     const toggleEditMode = () => {
         setEditMode(!editMode);
+    }
+
+    const goToStatsPage = () => {
+        navigate('/statistics');
     }
 
     return (
@@ -34,7 +40,7 @@ const SummaryStatsContainer = ({ title }: Props) => {
                 <Icon
                     component={ArrowForwardRounded}
                     className="goto-logs icon"
-                    // onClick={toggleEditMode} //go to page
+                    onClick={goToStatsPage}
                 />
             </div>
             <div className="summary-stats">
