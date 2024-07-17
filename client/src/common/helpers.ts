@@ -65,7 +65,7 @@ const getMinutesDifference = (start: string, end: string): string => {
     return getElapsedTimeString(minutes);
 }
 
-const getElapsedTimeString = (minutes: number): string => {
+export const getElapsedTimeString = (minutes: number): string => {
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
 
@@ -190,7 +190,7 @@ export const calculateFeedTimes = (logs: Log[]): FeedData[] => {
 }
 
 
-export const getTextWidth = (text: string) => {
+export const getTextWidth = (text: string): number => {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     if (context) {
@@ -198,4 +198,14 @@ export const getTextWidth = (text: string) => {
         return context.measureText(text).width;
     }
     return 0;
+}
+
+export const formatMinutes = (minutes: number): string => {
+    if (minutes < 0) {
+        throw new Error("Got negative minutes");
+    }
+
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = 0
+
 }

@@ -1,39 +1,20 @@
 import { ArrowBackIosRounded } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-import { calculateFeedTimes, calculateSleepHours } from "../common/helpers";
+import { calculateSleepHours } from "../common/helpers";
 import { useAppSelector } from "../common/hooks"
-import Statistic from "../features/statistics/components/Statistic"
 import { SleepData } from "../common/types";
+import EatStatistics from "../features/statistics/components/EatStatistics";
+import SleepStatistics from "../features/statistics/components/SleepStatistics";
 
 
 const Statistics = () => {
     const [activeFilter, setActiveFilter] = useState('sleep');
     const [daterangeVisible, setDateRangeVisible] = useState(false);
     const [daterangeView, setDaterangeView] = useState<string | null>('7');
-    const [data, setData] = useState<SleepData[]>([]);
-    const [visibleData, setVisibleData] = useState<SleepData[]>([]);
 
     const logs = useAppSelector(state => state.logs);
 
-    useEffect(() => {
-        let firstData = [];
-        if (activeFilter === 'sleep') {
-            firstData = calculateSleepHours(logs.logs);
-        } else {
-            firstData = calculateFeedTimes(logs.logs);
-            console.log(firstData)
-        }
-        setData(firstData);
-        setVisibleData(firstData.slice(-Number(daterangeView)));
-    }, [activeFilter]);
 
-    useEffect(() => {
-        if (daterangeView === null) {
-            setVisibleData(data);
-        } else {
-            setVisibleData(data.slice(-Number(daterangeView)));
-        }
-    }, [daterangeView, data]);
 
     const handleFilterChange = (event: React.SyntheticEvent) => {
         const filter = event.currentTarget.getAttribute('value');
@@ -96,32 +77,19 @@ const Statistics = () => {
             </div>
 
             <div className="statistics">
-                <Statistic
-                    data={visibleData}
-                    xDataKey="date"
-                    yDataKey="totalHours"
-                    title="Total sleep hours"
-                    units="hrs"
-                    color="#4DD9AF"
-                />
 
-                <Statistic
-                    data={visibleData}
-                    xDataKey="date"
-                    yDataKey="daytimeHours"
-                    title="Daytime sleep hours"
-                    units="hrs"
-                    color="#f8d604"
-                />
+                {
+                    activeFilter === 'sleep'
+                        ? <SleepStatistics 
+                            daterangeView={daterangeView}
+                            logs={logs.logs}
+                        />
+                        : <EatStatistics
+                            daterangeView={daterangeView}
+                            logs={logs.logs}
+                        />
+                }
 
-                <Statistic
-                    data={visibleData}
-                    xDataKey="date"
-                    yDataKey="nighttimeHours"
-                    title="Nighttime sleep hours"
-                    units="hrs"
-                    color="#10459a"
-                />
             </div>
         </>);
 };
