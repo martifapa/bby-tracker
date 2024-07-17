@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../common/hooks";
-import { pinQuickAction } from "../quickActionsSlice";
+import { createQuickAction } from "../quickActionsSlice";
 import Action from "./Action";
 
 const PinnedActions = () => {
@@ -12,7 +12,7 @@ const PinnedActions = () => {
 
     const handlePinNewAction = () => {
         toggleDropdown();
-        dispatch(pinQuickAction(newQuickAction));
+        dispatch(createQuickAction(newQuickAction));
     }
 
     const toggleDropdown = () => {

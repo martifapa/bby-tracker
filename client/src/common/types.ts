@@ -1,15 +1,19 @@
-export interface NewQuickActionForm {
+export interface QuickActionRequest {
     emoji: string,
-    label: string
+    label: string,
 }
 
-export interface QuickAction extends NewQuickActionForm {
-    id: number
+export interface QuickAction extends QuickActionRequest {
+    id: number,
 }
 
 export interface QuickActionState {
     status: string,
-    pinned: QuickAction[]
+    pinned: QuickAction[],
+}
+
+export interface AsyncThunkConfig {
+    rejectValue: string,
 }
 
 
@@ -19,14 +23,14 @@ export interface Log {
     datetime: string,
     label: string,
     emoji: string,
-    text?: string
+    text?: string,
 }
 
 export interface LogsState {
     status: string,
     logs: Log[],
     previewLogs: number,
-    view: Log[]
+    view: Log[],
 }
 
 
@@ -36,7 +40,7 @@ export interface SummaryStatType {
     title: string,
     times: number,
     cadence: string,
-    total?: string
+    total?: string,
 }
 
 
@@ -45,14 +49,14 @@ export interface SleepData {
     totalHours: number,
     daytimeHours: number,
     nighttimeHours: number,
-    [key: string]: unknown
+    [key: string]: unknown,
 }
 
 
 export interface FeedData {
     date: string,
     times: number,
-    averageSpan: number
+    averageSpan: number,
 }
 
 
@@ -62,5 +66,5 @@ export interface CustomLabelListProps {
     index: number,
     value: number,
     width: number,
-    height: number
+    height: number,
 }
