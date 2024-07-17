@@ -10,6 +10,7 @@ import Donate from './navigationBar/Donate';
 import Home from './Home';
 
 import { createBrowserRouter } from 'react-router-dom';
+import Statistics from './Statistics';
 
 
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
         {
           path: 'logs',
           element: <Logs />
+        },
+        {
+          path: 'statistics',
+          element: <Statistics />
         },
         {
           path: 'pair-device',

@@ -38,3 +38,29 @@ export interface SummaryStatType {
     cadence: string,
     total?: string
 }
+
+
+export interface SleepData {
+    date: string,
+    totalHours: number,
+    daytimeHours: number,
+    nighttimeHours: number,
+    [key: string]: unknown
+}
+
+
+export interface FeedData {
+    date: string,
+    times: number,
+    averageSpan: number
+}
+
+
+export interface CustomLabelListProps {
+    x: number,
+    y: number,
+    index: number,
+    value: number,
+    width: number,
+    height: number
+}

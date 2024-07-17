@@ -65,13 +65,13 @@ const Logs = () => {
 
     return (
         <>
-            <div className="filter-logs">
+            <div className="header-filters">
                 <div className="filter">
                     <p>Type</p>
                     <select onChange={handleTypeChange}>
                         <option value={"all"}>All</option>
-                        {logTypes.map(type =>
-                            <option key={type} value={type}>{type}</option>
+                        {logTypes.map(emoji =>
+                            <option key={emoji} value={emoji}>{emoji}</option>
                         )}
                     </select>
                 </div>
@@ -83,7 +83,7 @@ const Logs = () => {
                         </div>
                     </div>
 
-                    <div className={`range-dropdow ${dateFilterVisible ? 'selected' : ''}`}>
+                    <div className={`dropdown ${dateFilterVisible ? 'selected' : ''}`}>
                         <CalendarMonthRounded />
                         <DatePicker
                             dateFormat="dd/MM/yy"

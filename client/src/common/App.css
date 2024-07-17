@@ -596,12 +596,13 @@ body {
   flex-basis: 100%;
 }
 
-.filter-logs {
+.header-filters {
   width: 100%;
   padding: 10px 12px;
   border-bottom: 1px solid var(--light-grey-dark);
   display: flex;
   gap: 12px;
+
 }
 
 .filter {
@@ -641,8 +642,9 @@ body {
   opacity: 1;
 }
 
-.range-dropdow {
+.dropdown {
   position: absolute;
+  z-index: 100;
   top: 100%;
   left: -25px;
   transform: translateY(-10px);
@@ -658,13 +660,13 @@ body {
   transition: transform .2s, opacity .2s;
 }
 
-.range-dropdow.selected {
+.dropdown.selected {
   opacity: 1;
   pointer-events: all;
   transform: translateY(0);
 }
 
-.range-dropdow input {
+.dropdown input {
   border: 1px solid var(--text-dark);
   border-radius: 4px;
   padding: 4px;
@@ -690,5 +692,55 @@ body {
   background-color: var(--base-aqua);
   border-radius: 50px;
   padding: 5px 12px;
-  margin-inline-start: auto;
+}
+
+
+/* STATISTICS PAGE */
+.left,
+.right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.left {
+  padding-right: 10px;
+  border-right: 1px solid var(--light-grey-dark);
+}
+
+.select {
+  left: 0;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.selected-option {
+  color: var(--base-aqua);
+}
+
+.statistic-filter {
+  padding: 5px 12px;
+  border-radius: 50px;
+  border: 1px solid var(--aqua-dark);
+  transition: border .2s, background-color .2s;
+}
+
+.statistic-filter.active {
+  background-color: var(--base-aqua);
+  border: 1px solid var(--base-aqua);
+}
+
+.statistics {
+  padding: 5px;
+}
+.statistic {
+  position: relative;
+  padding: 5px 15px;
+  
+}
+.statistic-title {
+  position: absolute;
+  top: 10px;
+  font-size: 1.1rem;
 }
