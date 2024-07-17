@@ -21,7 +21,7 @@ model Actions {
 
 model Logs {
   id        Int       @id @default(autoincrement())
-  datetime  DateTime
+  datetime  String
   emoji     String
   label     String
 }
