@@ -1,6 +1,6 @@
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, LabelList } from "recharts";
 import { FeedData } from "../../../common/types";
-import { renderLabel } from "../../../common/helpers/ui";
+import { renderLabel } from "../../../common/utils/ui";
 
 
 interface Props {

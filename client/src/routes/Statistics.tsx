@@ -1,8 +1,6 @@
 import { ArrowBackIosRounded } from "@mui/icons-material";
-import { useEffect, useState } from "react";
-import { calculateSleepHours } from "../common/helpers";
-import { useAppSelector } from "../common/hooks"
-import { SleepData } from "../common/types";
+import { useState } from "react";
+import { useAppSelector } from "../common/hooks";
 import EatStatistics from "../features/statistics/components/EatStatistics";
 import SleepStatistics from "../features/statistics/components/SleepStatistics";
 

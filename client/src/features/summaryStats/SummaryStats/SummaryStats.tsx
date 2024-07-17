@@ -1,4 +1,4 @@
-import { toCapitalize } from "../../../common/helpers";
+import { toCapitalize } from "../../../common/utils/general";
 import { useAppSelector } from "../../../common/hooks";
 import SummaryStat from "./SummaryStat";
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getLocalDateTime, parseLogText } from "../../../common/helpers";
+import { getLocalDateTime } from "../../../common/utils/time";
+import { parseLogText } from "../../../common/utils/helpers";
 import { useAppDispatch, useAppSelector } from "../../../common/hooks";
 import { unpinQuickAction } from "../quickActionsSlice";
 import { addLog } from "../../logs/logsSlice";

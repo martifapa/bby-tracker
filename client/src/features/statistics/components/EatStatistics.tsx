@@ -1,4 +1,4 @@
-import { calculateFeedTimes } from "../../../common/helpers";
+import { calculateFeedTimes } from "../../../common/utils/helpers";
 import { FeedData, Log } from "../../../common/types";
 import EatStatistic from "./EatStatistic";
 import { useEffect, useState } from "react";

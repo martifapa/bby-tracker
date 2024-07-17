@@ -1,7 +1,7 @@
 import SleepStatistic from "./SleepStatistic";
 import { useEffect, useState } from "react";
 import { Log, SleepData } from "../../../common/types";
-import { calculateSleepHours } from "../../../common/helpers";
+import { calculateSleepHours } from "../../../common/utils/helpers";
 
 
 interface Props {

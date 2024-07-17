@@ -1,10 +1,7 @@
-import { FeedData, Log, SleepData } from "../common/types";
-import { DAY_END, DAY_START } from "./constants";
+import { FeedData, Log, SleepData } from "../types";
+import { DAY_END, DAY_START } from "../constants";
+import { getMinutesDifference, getToday } from "./time";
 
-
-export const toCapitalize = (text: string): string => {
-    return text.charAt(0).toUpperCase() + text.slice(1);
-}
 
 export const parseLogText = (datetime: string, label: string, logs: Log[]) => {
     const { todayDate, todayDatetime } = getToday();
@@ -42,49 +39,6 @@ export const parseLogText = (datetime: string, label: string, logs: Log[]) => {
     }
 }
 
-export const getLocalDateTime = (datetime: null|string=null): string => {
-    let date;
-    if (datetime) {
-        date = new Date(datetime);
-    } else {
-        date = new Date();
-    }
-
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    return `${year}-${month}-${day} ${hours}:${minutes}`;
-};
-
-const getMinutesDifference = (start: string, end: string): string => {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    const minutes = Math.round((endDate.getTime() - startDate.getTime()) / (1000*60));
-    return getElapsedTimeString(minutes);
-}
-
-export const getElapsedTimeString = (minutes: number): string => {
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-
-    let timeString = '';
-    if (hours > 0) {
-        timeString += `${hours}h`;
-    }
-    if (remainingMinutes > 0 || hours === 0) {
-        timeString += `${hours > 0 ? ' ' : ''}${remainingMinutes}'`
-    }
-
-    return timeString;
-}
-
-const getToday = (): {todayDate: string, todayDatetime: string} => {
-    const todayDatetime = new Date().toJSON()
-    const todayDate = todayDatetime.slice(0, 10);
-    return { todayDate, todayDatetime };
-}
 
 export const calculateSleepHours = (logs: Log[]): SleepData[] => {
     const sleepData: { [date: string]: { total: number, day: number, night: number } } = {};
@@ -187,25 +141,4 @@ export const calculateFeedTimes = (logs: Log[]): FeedData[] => {
     });
 
     return stats;
-}
-
-
-export const getTextWidth = (text: string): number => {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    if (context) {
-        context.font = getComputedStyle(document.body).font;   
-        return context.measureText(text).width;
-    }
-    return 0;
-}
-
-export const formatMinutes = (minutes: number): string => {
-    if (minutes < 0) {
-        throw new Error("Got negative minutes");
-    }
-
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = 0
-
 }
