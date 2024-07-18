@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../common/hooks";
-import { createQuickAction } from "../quickActionsSlice";
+import { createQuickAction, initializeQuickActions } from "../quickActionsSlice";
 import Action from "./Action";
 
 const PinnedActions = () => {
@@ -9,6 +9,10 @@ const PinnedActions = () => {
     const [visibility, setVisibility] = useState(false);
     const [newQuickAction, setNewQuickAction] = useState({emoji: '😴', label: 'Sleep'});
     const [actionVisibility, setActionVisibility] = useState(-1);
+
+    useEffect(() => {
+        dispatch(initializeQuickActions());
+    }, []);
 
     const handlePinNewAction = () => {
         toggleDropdown();

@@ -1,9 +1,21 @@
-// src/features/quickActions/quickActionsSlice.ts
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IDLE } from '../../common/constants';
 import { QuickActionRequest, QuickActionState, QuickAction } from '../../common/types';
 import quickActionsService from '../../services/quickActions';
 
+
+export const initializeQuickActions = createAsyncThunk<
+  QuickAction[],
+  void,
+  {
+    state: { quickActions: { status: string, pinned: QuickAction[] }}
+  }
+>(
+  'quickActions/initializeQuickActions',
+  async () => {
+    return await quickActionsService.getActions();
+  }
+);
 
 export const createQuickAction = createAsyncThunk<
   QuickAction,
@@ -18,13 +30,23 @@ export const createQuickAction = createAsyncThunk<
   }
 );
 
+export const deleteQuickAction = createAsyncThunk<
+  number,
+  number,
+  {
+    state: { quickActions: { status: string, pinned: QuickAction[] }}
+  }
+>(
+  'quickActions/deleteQuickAction',
+  async (id: number) => {
+    return await quickActionsService.deleteQuickAction(id);
+  }
+);
+
 
 const initialState: QuickActionState = {
   status: IDLE,
-  pinned: [
-    { id: 1, emoji: '😴', label: 'Sleep' },
-    { id: 2, emoji: '🌅', label: 'Wake up' }
-  ]
+  pinned: []
 };
 
 
@@ -41,10 +63,22 @@ const quickActionsSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(createQuickAction.fulfilled, (state, action: PayloadAction<QuickAction>) => {
-      state.status = IDLE;
-      state.pinned = [...state.pinned, action.payload];
-    });
+    builder
+      // INITIALIZE QUICK ACTIONS
+      .addCase(initializeQuickActions.fulfilled, (state, action: PayloadAction<QuickAction[]>) => {
+        state.status = IDLE;
+        state.pinned = action.payload;
+      })
+      // CREATE QUICK ACTION
+      .addCase(createQuickAction.fulfilled, (state, action: PayloadAction<QuickAction>) => {
+        state.status = IDLE;
+        state.pinned = [...state.pinned, action.payload];
+      })
+      // DELETE QUICK ACTION
+      .addCase(deleteQuickAction.fulfilled, (state, action: PayloadAction<number>) => {
+        state.status = IDLE;
+        state.pinned = state.pinned.filter(quickAction => quickAction.id !== action.payload);
+      })
   }
 });
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getLocalDateTime } from "../../../common/utils/time";
 import { parseLogText } from "../../../common/utils/helpers";
 import { useAppDispatch, useAppSelector } from "../../../common/hooks";
-import { unpinQuickAction } from "../quickActionsSlice";
+import { deleteQuickAction } from "../quickActionsSlice";
 import { addLog } from "../../logs/logsSlice";
 
 
@@ -51,7 +51,8 @@ const Action = ({ id, emoji, label, newActionDDVisibility, visibility, toggleVis
     const handleUnpinQuickAction = (id: number) => {
         setIsRemoving(true);
         setTimeout(() => {
-            dispatch(unpinQuickAction(id));
+            dispatch(deleteQuickAction(id));
+            
         }, 500);
     }
 
