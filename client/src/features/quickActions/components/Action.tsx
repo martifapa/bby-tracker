@@ -3,7 +3,7 @@ import { getLocalDateTime } from "../../../common/utils/time";
 import { parseLogText } from "../../../common/utils/helpers";
 import { useAppDispatch, useAppSelector } from "../../../common/hooks";
 import { deleteQuickAction } from "../quickActionsSlice";
-import { addLog } from "../../logs/logsSlice";
+import { createLog } from "../../logs/logsSlice";
 
 
 interface Props {
@@ -52,13 +52,12 @@ const Action = ({ id, emoji, label, newActionDDVisibility, visibility, toggleVis
         setIsRemoving(true);
         setTimeout(() => {
             dispatch(deleteQuickAction(id));
-            
         }, 500);
     }
 
     const handleCreateLog = () => {
         toggleDropdown();
-        dispatch(addLog({ datetime, label, emoji }));
+        dispatch(createLog({ datetime, label, emoji }));
     }
 
     return (

@@ -14,7 +14,7 @@ const createQuickAction = async (quickAction: QuickActionRequest): Promise<Quick
             BASE_URL_ACTIONS,
             quickAction
         );
-        return response.data as QuickAction;
+        return response.data;
     } catch (error) {
         console.error('Error creating quick action:', error);
         throw error;

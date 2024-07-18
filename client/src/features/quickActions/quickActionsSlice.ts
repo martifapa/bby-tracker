@@ -2,13 +2,14 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IDLE } from '../../common/constants';
 import { QuickActionRequest, QuickActionState, QuickAction } from '../../common/types';
 import quickActionsService from '../../services/quickActions';
+import { RootState } from '../../store';
 
 
 export const initializeQuickActions = createAsyncThunk<
   QuickAction[],
   void,
   {
-    state: { quickActions: { status: string, pinned: QuickAction[] }}
+    state: RootState
   }
 >(
   'quickActions/initializeQuickActions',
@@ -21,7 +22,7 @@ export const createQuickAction = createAsyncThunk<
   QuickAction,
   QuickActionRequest,
   {
-    state: { quickActions: { status: string, pinned: QuickAction[] }}
+    state: RootState
   }
 >(
   'quickActions/createQuickAction',
@@ -34,7 +35,7 @@ export const deleteQuickAction = createAsyncThunk<
   number,
   number,
   {
-    state: { quickActions: { status: string, pinned: QuickAction[] }}
+    state: RootState
   }
 >(
   'quickActions/deleteQuickAction',

@@ -17,13 +17,14 @@ export interface AsyncThunkConfig {
 }
 
 
-
-export interface Log {
-    id: number,
+export interface LogRequest {
     datetime: string,
-    label: string,
     emoji: string,
-    text?: string,
+    label: string,
+}
+
+export interface Log extends LogRequest {
+    id: number,
 }
 
 export interface LogsState {
