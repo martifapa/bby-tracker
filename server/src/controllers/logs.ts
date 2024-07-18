@@ -22,6 +22,14 @@ const createLog = async (log: LogRequest): Promise<Log> => {
     return newLog;
 }
 
+const updateLog = async (log: Log): Promise<Log> => {
+    const updatedLog = await prisma.logs.update({
+         where: { id: log.id },
+         data: { ...log }
+    });
+    return updatedLog;
+}
+
 const deleteLog = async (id: number) => {
     const deletedLog = await prisma.logs.delete({
         where: { id }
@@ -32,5 +40,6 @@ const deleteLog = async (id: number) => {
 export default {
     getLogs,
     createLog,
+    updateLog,
     deleteLog
 }

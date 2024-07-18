@@ -16,6 +16,11 @@ router.route('/logs')
         const newLog = await logsController.createLog(log);
         response.status(201).json(newLog);
     })
+    .patch(async (request, response) => {
+        const log = request.body;
+        const updatedLog = await logsController.updateLog(log);
+        response.status(201).json(updatedLog);
+    })
     .delete(async (request, response) => {
         const { id } = request.body;
         await logsController.deleteLog(Number(id));
