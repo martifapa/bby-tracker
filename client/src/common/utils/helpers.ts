@@ -1,4 +1,4 @@
-import { FeedData, Log, SleepData } from "../types";
+import { FeedData, Log, SleepData, SummaryStatType } from "../types";
 import { DAY_END, DAY_START } from "../constants";
 import { getMinutesDifference, getToday } from "./time";
 
@@ -44,8 +44,12 @@ export const calculateSleepHours = (logs: Log[]): SleepData[] => {
     const sleepData: { [date: string]: { total: number, day: number, night: number } } = {};
 
     let sleepStart: Date | null = null;
+    
+    const sortedLogs = [...logs].sort((a, b) =>
+        new Date(a.datetime).getTime() - new Date(b.datetime).getTime()
+    );
 
-    logs.forEach(log => {
+    sortedLogs.forEach(log => {
         if (log.label === 'Sleep') {
             sleepStart = new Date(log.datetime);
         } else if (log.label === 'Wake up' && sleepStart) {
@@ -141,4 +145,64 @@ export const calculateFeedTimes = (logs: Log[]): FeedData[] => {
     });
 
     return stats;
+}
+
+export const calculateSummaryStat = (logs: Log[], logType: string): {
+    times: number, cadence: string, total: string | null
+} => {
+    const today = new Date().toISOString().split('T')[0];
+    const filteredLogs = logs.filter(log => log.label.toLowerCase() === logType && log.datetime.startsWith(today));
+
+    const times = filteredLogs.length;
+
+    if (times === 0) {
+        return { times, cadence: 'N/A', total: null };
+    }
+
+    filteredLogs.sort((a, b) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime());
+    let total = null;
+    let cadence = 'N/A';
+
+    if (logType === 'sleep') {
+        let totalSleepHours = 0;
+        for (let i = 0; i < filteredLogs.length; i += 2) {
+            if (filteredLogs[i] && filteredLogs[i + 1]) {
+                const sleepStart = new Date(filteredLogs[i].datetime);
+                const wakeUp = new Date(filteredLogs[i + 1].datetime);
+                totalSleepHours += (wakeUp.getTime() - sleepStart.getTime()) / (1000 * 60 * 60);
+            }
+        }
+        const totalHours = Math.floor(totalSleepHours);
+        const totalMinutes = Math.round((totalSleepHours % 1) * 60);
+
+        if (totalHours === 0) {
+            total = `${totalMinutes}'`;
+        } else if (totalMinutes === 0) {
+            total = `${totalHours}h`;
+        } else {
+            total = `${totalHours}h ${totalMinutes}'`;
+        }
+    }
+
+    if (times > 1) {
+        let totalInterval = 0;
+        for (let i = 1; i < filteredLogs.length; i++) {
+            const prevLogTime = new Date(filteredLogs[i - 1].datetime).getTime();
+            const currentLogTime = new Date(filteredLogs[i].datetime).getTime();
+            totalInterval += (currentLogTime - prevLogTime);
+        }
+        const averageInterval = totalInterval / (times - 1);
+        const averageHours = Math.floor(averageInterval / (1000 * 60 * 60));
+        const averageMinutes = Math.round((averageInterval % (1000 * 60 * 60)) / (1000 * 60));
+        
+        if (averageHours === 0) {
+            cadence = `${averageMinutes}'`;
+        } else if (averageMinutes === 0) {
+            cadence = `${averageHours}h`;
+        } else {
+            cadence = `${averageHours}h ${averageMinutes}'`;
+        }
+    }
+
+    return { times, cadence, total };
 }

@@ -1,6 +1,8 @@
 import { toCapitalize } from "../../../common/utils/general";
-import { useAppSelector } from "../../../common/hooks";
+import { useAppDispatch, useAppSelector } from "../../../common/hooks";
 import SummaryStat from "./SummaryStat";
+import { updateStat } from "../summaryStatsSlice";
+import { SummaryStatType } from "../../../common/types";
 
 
 interface Props {
@@ -10,10 +12,16 @@ interface Props {
 
 
 const SummaryStats = ({ editMode, toggleEditMode }: Props) => {
+    const dispatch = useAppDispatch();
     const summaryStats = useAppSelector(state => state.summaryStats);
+    const stats = summaryStats.stats.filter(stat => stat.show);
+
+    const handleToggleStat = (newState: SummaryStatType) => {
+        dispatch(updateStat({ ...newState, show: !newState.show }));
+    }
     
     return (<div className="logs">
-        {summaryStats.stats.map(stat => 
+        {stats.map(stat => 
             <SummaryStat
             key={stat.title}
             stat={stat} />
@@ -32,8 +40,8 @@ const SummaryStats = ({ editMode, toggleEditMode }: Props) => {
                         </div>
                         <button
                             className="light-button"
-                            // onClick={}
-                        >Hide</button>
+                            onClick={() => handleToggleStat(stat)}
+                        >{stat.show ? 'Hide' : 'Show'}</button>
                     </div>
                 )}
             </div>

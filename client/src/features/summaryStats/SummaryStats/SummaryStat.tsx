@@ -1,13 +1,19 @@
+import { useAppSelector } from "../../../common/hooks";
 import { SummaryStatType } from "../../../common/types";
 import { toCapitalize } from "../../../common/utils/general";
+import { calculateSummaryStat } from "../../../common/utils/helpers";
 
 
 interface Props {
     stat: SummaryStatType,
 }
 
+
 const SummaryStat = ({ stat }: Props) => {
-        
+    const logs = useAppSelector(state => state.logs);
+
+    const { times, cadence, total } = calculateSummaryStat(logs.logs, stat.title);
+
     return (
         <div className="log summary-stat">
             <div className="emoji-wrapper small">
@@ -16,10 +22,10 @@ const SummaryStat = ({ stat }: Props) => {
             <div className="log-content">
                 <p className="log-content__main">{toCapitalize(stat.title)}</p>
                 <p className="log-content__secondary">
-                    | {stat.times} times{stat.total
-                        ? <span>({stat.total} total)</span>
+                    | {times} times{total
+                        ? <span>({total} total)</span>
                         : null}
-                    , every {stat.cadence}
+                    , every {cadence}
                 </p>
             </div>
         </div>

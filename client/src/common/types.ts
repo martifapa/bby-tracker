@@ -38,6 +38,7 @@ export interface LogsState {
 
 export interface SummaryStatType {
     emoji: string,
+    show: boolean,
     title: string,
     times: number,
     cadence: string,
