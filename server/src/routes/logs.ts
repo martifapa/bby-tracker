@@ -19,7 +19,7 @@ router.route('/logs')
     .delete(async (request, response) => {
         const { id } = request.body;
         await logsController.deleteLog(Number(id));
-        response.status(204);
+        response.status(204).end();
     });
 
 

@@ -18,9 +18,13 @@ const createAction = async (action: ActionPostRequest): Promise<Action> => {
 }
 
 const deleteAction = async (id: number) => {
-    const deletedAction = await prisma.actions.delete({
-        where: { id }
-    });
+    try {
+        const deletedAction = await prisma.actions.delete({
+            where: { id }
+        });
+    } catch (error) {
+        console.log('Record to delete not found:', error);
+    }
 }
 
 

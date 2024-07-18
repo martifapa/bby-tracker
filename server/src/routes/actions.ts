@@ -18,7 +18,7 @@ router.route('/actions')
     .delete(async (request, response) => {
         const { id } = request.body;
         await actions.deleteAction(Number(id));
-        response.status(204);
+        response.status(204).end();
     });
 
 
