@@ -5,6 +5,7 @@ import cors from 'cors';
 
 import quickActionsRouter from './routes/actions';
 import logsRouter from './routes/logs';
+import summaryStats from './routes/summaryStats';
 
 
 const app = express();
@@ -23,6 +24,7 @@ app.use(cors());
 
 app.use(quickActionsRouter);
 app.use(logsRouter);
+app.use(summaryStats);
 
 
 app.listen(PORT, () => {

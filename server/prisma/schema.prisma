@@ -25,3 +25,10 @@ model Logs {
   emoji     String
   label     String
 }
+
+model SummaryStats {
+  id      Int @id @default(autoincrement())
+  emoji   String
+  label   String
+  show    Boolean
+}
