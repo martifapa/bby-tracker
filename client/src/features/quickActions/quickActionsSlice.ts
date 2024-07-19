@@ -8,9 +8,7 @@ import { RootState } from '../../store';
 export const initializeQuickActions = createAsyncThunk<
   QuickAction[],
   void,
-  {
-    state: RootState
-  }
+  { state: RootState }
 >(
   'quickActions/initializeQuickActions',
   async () => {
@@ -21,9 +19,7 @@ export const initializeQuickActions = createAsyncThunk<
 export const createQuickAction = createAsyncThunk<
   QuickAction,
   QuickActionRequest,
-  {
-    state: RootState
-  }
+  { state: RootState }
 >(
   'quickActions/createQuickAction',
   async (quickAction: QuickActionRequest) => {
@@ -34,9 +30,7 @@ export const createQuickAction = createAsyncThunk<
 export const deleteQuickAction = createAsyncThunk<
   number,
   number,
-  {
-    state: RootState
-  }
+  { state: RootState }
 >(
   'quickActions/deleteQuickAction',
   async (id: number) => {

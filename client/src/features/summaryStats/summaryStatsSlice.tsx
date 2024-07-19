@@ -1,15 +1,36 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IDLE } from "../../common/constants";
+import { SummaryStatState, SummaryStatType } from "../../common/types";
+import { RootState } from "../../store";
+import summaryStatsService from "../../services/summaryStats";
 
-const initialState = {
+
+export const initializeSummaryStats = createAsyncThunk<
+    SummaryStatType[],
+    void,
+    { state: RootState }
+>(
+    'summaryStats/initializeSummaryStats',
+    async () => {
+        return await summaryStatsService.getSummaryStats();
+    }
+);
+
+export const toggleSummaryStat = createAsyncThunk<
+    SummaryStatType | null,
+    number,
+    { state: RootState }
+>(
+    'summaryStats/toggleSummaryStat',
+    async (id: number) => {
+        return await summaryStatsService.toggleSummaryStat(id);
+    }
+)
+
+
+const initialState: SummaryStatState = {
     status: IDLE,
-    stats: [
-        {show: true, emoji: '🍽️', title: 'eat', times: 3, cadence: "2h 13'", total: ""},
-        {show: true, emoji: '🍼', title: 'milk', times: 3, cadence: "2h 13'", total: ""},
-        {show: true, emoji: '😴', title: 'sleep', times: 3, cadence: "2h 3'", total: "12h 54'"},
-        {show: true, emoji: '💩', title: 'poop', times: 1, cadence: "0h 37'", total: ""},
-        {show: true, emoji: '💦', title: 'piss', times: 2, cadence: "5h 11'", total: ""},
-    ]
+    stats: []
 };
 
 
@@ -19,12 +40,29 @@ const slice = createSlice({
     reducers: {
         updateStat(state, action) {
             state.stats = [...state.stats.map(stat =>
-                stat.title === action.payload.title
+                stat.label === action.payload.label
                     ? action.payload
                     : stat
             )];
         }
-    }
+    },
+    extraReducers(builder) {
+        builder
+            // INITIALIZE SUMMARY STATS
+            .addCase(initializeSummaryStats.fulfilled, (state, action) => {
+                state.status = IDLE;
+                state.stats = action.payload;
+            })
+            // TOGGLE SUMMARY STAT
+            .addCase(toggleSummaryStat.fulfilled, (state, action) => {
+                if (!action.payload) return
+                state.stats = [...state.stats.map(stat =>
+                    stat.label === action.payload?.label
+                        ? action.payload
+                        : stat
+                )]
+            })
+    },
 });
 
 

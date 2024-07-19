@@ -1,4 +1,4 @@
-import { FeedData, Log, SleepData, SummaryStatType } from "../types";
+import { FeedData, Log, SleepData } from "../types";
 import { DAY_END, DAY_START } from "../constants";
 import { getMinutesDifference, getToday } from "./time";
 
@@ -114,12 +114,11 @@ export const calculateSleepHours = (logs: Log[]): SleepData[] => {
 }
 
 export const calculateFeedTimes = (logs: Log[]): FeedData[] => {
-    // Filter out only the logs that have the label "Eat"
     const eatLogs = logs.filter(log => log.label === 'Eat');
     
     // Group logs by date
     const logsByDate: { [date: string]: Log[] } = eatLogs.reduce((acc, log) => {
-        const date = log.datetime.split(' ')[0]; // Extract the date part from datetime
+        const date = log.datetime.split(' ')[0];
         if (!acc[date]) {
             acc[date] = [];
         }
@@ -134,6 +133,7 @@ export const calculateFeedTimes = (logs: Log[]): FeedData[] => {
 
         // Calculate the average time between eats in minutes
         const count = dateLogs.map(log => new Date(log.datetime).getTime());
+        count.sort((a, b) => a - b);
         const timeSpans = count.slice(1).map((time, index) => (time - count[index]) / (1000 * 60)); // Difference in minutes
         const averageSpan = timeSpans.reduce((a, b) => a + b, 0) / timeSpans.length;
 
@@ -144,7 +144,7 @@ export const calculateFeedTimes = (logs: Log[]): FeedData[] => {
         };
     });
 
-    return stats;
+    return stats.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 }
 
 export const calculateSummaryStat = (logs: Log[], logType: string): {

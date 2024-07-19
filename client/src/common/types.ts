@@ -37,12 +37,15 @@ export interface LogsState {
 
 
 export interface SummaryStatType {
+    id: number,
     emoji: string,
     show: boolean,
-    title: string,
-    times: number,
-    cadence: string,
-    total?: string,
+    label: string,
+}
+
+export interface SummaryStatState {
+    status: string,
+    stats: SummaryStatType[],
 }
 
 

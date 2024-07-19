@@ -12,7 +12,7 @@ interface Props {
 const SummaryStat = ({ stat }: Props) => {
     const logs = useAppSelector(state => state.logs);
 
-    const { times, cadence, total } = calculateSummaryStat(logs.logs, stat.title);
+    const { times, cadence, total } = calculateSummaryStat(logs.logs, stat.label);
 
     return (
         <div className="log summary-stat">
@@ -20,10 +20,10 @@ const SummaryStat = ({ stat }: Props) => {
                 <p className="emoji">{stat.emoji}</p>
             </div>
             <div className="log-content">
-                <p className="log-content__main">{toCapitalize(stat.title)}</p>
+                <p className="log-content__main">{toCapitalize(stat.label)}</p>
                 <p className="log-content__secondary">
                     | {times} times{total
-                        ? <span>({total} total)</span>
+                        ? <span>&nbsp;({total} total)</span>
                         : null}
                     , every {cadence}
                 </p>
