@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "npm --prefix server run dev",
-    "client": "npm --prefix client run dev",
+    "server": "npm --prefix server run start",
+    "client": "npm --prefix client run start",
+    "dev": "concurrently \"npm run server-dev\" \"npm run client-dev\"",
+    "server-dev": "npm --prefix server run dev",
+    "client-dev": "npm --prefix client run dev",
     "build": "npm --prefix server build && npm --prefix client build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
