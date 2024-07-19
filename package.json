@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/recharts": "^1.8.29",
     "concurrently": "^8.2.2"
   }
 }
