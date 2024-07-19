@@ -11,7 +11,7 @@ router.route('/summaryStats')
         response.status(200).json(stats);
     })
     .put(async (request, response) => {
-        const id = Number(request.body);
+        const id = Number(request.body.id);
         const toggled = await summaryStatsController.toggleSummaryStat(id);
         if (toggled) {
             response.status(201).json(toggled);
