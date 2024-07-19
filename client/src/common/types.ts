@@ -66,10 +66,10 @@ export interface FeedData {
 
 
 export interface CustomLabelListProps {
-    x: number,
-    y: number,
-    index: number,
-    value: number,
-    width: number,
-    height: number,
+    x?: string | number | undefined,
+    y?: string | number | undefined,
+    index?: number | undefined,
+    value?: string | number | undefined,
+    width?: string | number | undefined,
+    height?: string | number | undefined,
 }
