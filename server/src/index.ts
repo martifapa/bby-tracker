@@ -1,15 +1,13 @@
 import express from 'express';
-require('dotenv').config();
 import cors from 'cors';
-
 
 import quickActionsRouter from './routes/actions';
 import logsRouter from './routes/logs';
 import summaryStats from './routes/summaryStats';
+import { PORT } from './config';
 
 
 const app = express();
-const PORT = process.env.PORT;
 
 
 app.use(express.json());
@@ -20,7 +18,6 @@ app.use((request, _response, next) => {
 });
 
 app.use(cors());
-
 
 app.use(quickActionsRouter);
 app.use(logsRouter);
